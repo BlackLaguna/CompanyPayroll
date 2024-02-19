@@ -1,0 +1,5 @@
+payroll_controller:
+    resource:
+        path: ../src/CompanyPayrolls/Framework/Controller/
+        namespace: CompanyPayrolls\Framework\Controller
+    type: attribute

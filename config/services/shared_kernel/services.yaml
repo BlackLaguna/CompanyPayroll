@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    SharedKernel\Framework\:
+        resource: '../../../src/SharedKernel/Framework/'
+
+    SharedKernel\Application\Bus\QueryBus:
+        class: 'SharedKernel\Framework\Messenger\Bus\MessengerQueryBus'
+        arguments: ['@query.bus']
+
+    ### FOR TEST TASK PURPOSES ###
+    Tests\Fake\DataFixtures\:
+        resource: '../../../tests/Fake/DataFixtures/'

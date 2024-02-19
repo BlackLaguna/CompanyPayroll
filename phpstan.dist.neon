@@ -1,0 +1,12 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+
+parameters:
+    level: 9
+    paths:
+        - src/
+        - tests/
+    doctrine:
+        objectManagerLoader: .phpstan/object-manager.php
+    ignoreErrors:
+        - '#Match expression does not handle remaining value: string#'

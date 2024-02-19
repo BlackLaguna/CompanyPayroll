@@ -1,0 +1,43 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/NginxDockerfile
+    networks:
+      - internal
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html/
+    depends_on:
+      - php
+      - postgres
+
+  php:
+    build:
+      context: .
+      dockerfile: ./.docker/PhpDockerfile
+    command: sh -c "make run && php-fpm -F"
+    networks:
+      - internal
+    volumes:
+      - ./:/var/www/html:delegated
+      - ./.docker/php-ini:/usr/local/etc/php/php.ini-development
+      - ./.docker/php-ini:/usr/local/etc/php/php.ini-production
+      - ./.docker/php-ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15-alpine
+    networks:
+      - internal
+    environment:
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+
+networks:
+  internal:
+    driver: bridge

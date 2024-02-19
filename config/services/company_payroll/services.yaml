@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    CompanyPayrolls\Domain\:
+        resource: '../../../src/CompanyPayrolls/Domain/{Service,Repository}'
+
+    CompanyPayrolls\Application\:
+        resource: '../../../src/CompanyPayrolls/Application/'
+        exclude:
+            - '../../../src/CompanyPayrolls/Application/{Filter,Pagination}'
+
+    CompanyPayrolls\Framework\:
+        resource: '../../../src/CompanyPayrolls/Framework/'
+
+    CompanyPayrolls\Infrastructure\:
+        resource: '../../../src/CompanyPayrolls/Infrastructure/'
+
+    CompanyPayrolls\Framework\Controller\:
+        resource: '../../../src/CompanyPayrolls/Framework/Controller/'
+        tags: ['controller.service_arguments']
+
+    CompanyPayrolls\Framework\EventSubscriber\ExceptionSubscriber:
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    CompanyPayrolls\Infrastructure\Services\DoctrineReportExistsChecker: ~
+    CompanyPayrolls\Domain\Service\ReportExistsChecker: '@CompanyPayrolls\Infrastructure\Services\DoctrineReportExistsChecker'

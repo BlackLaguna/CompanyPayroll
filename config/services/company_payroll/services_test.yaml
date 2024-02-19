@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Tests\Fake\CompanyPayrolls\FakeReportExistsChecker: ~
+    CompanyPayrolls\Domain\Service\ReportExistsChecker: '@Tests\Fake\CompanyPayrolls\FakeReportExistsChecker'
